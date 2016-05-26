@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification App</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <script>
+        function verify() {
+            document.getElementById("result").innerHTML = '';
+            var email = document.getElementById("email").value;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var result = JSON.parse(xhttp.responseText);
+                    document.getElementById("result").innerHTML = email 
+                            + "<br> Score : "+result.score
+							+ " <br> Status : "+result.status
+                            + "<br> Result : "+result.result
+							
+                }
+            };
+            xhttp.open("GET", "validate.php?email=" + email, true);
+            xhttp.setRequestHeader("Content-type", "text/plain;charset=UTF-8");
+            xhttp.send(email);
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+	<h1>Email Tester</h1>
+	<label for="email">Please Enter an Email Address:</label> <br/><br/>
+    <input id="email"  type="email" size="50"/><br/><br/>
+    <button id="verify" onclick="verify();">Verify</button>
+
+<div id="result">
+ 	
+</div>
+</div> 
+</body>
+</html>
